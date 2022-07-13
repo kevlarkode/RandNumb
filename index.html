@@ -36,7 +36,7 @@
             margin: 5px 0;
         }
 
-        .btn {
+        .go-button {
             font-size: larger;
             font-weight: 700;
             color: #000;
@@ -48,6 +48,11 @@
             cursor: pointer;
             box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.5);
             user-select: none;
+        }
+
+        .go-button:active {
+            box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+            background-color: hsl(32, 100%, 80%)
         }
 
         .result-div {
@@ -200,15 +205,22 @@
                 <button type="button" class="value-change-button button-increment" data-type="increment">+</button>
             </div>
 
-            
+
 
             <!--  -->
 
-            <div class="btn-div">
-                <div class="btn" onclick="getNumbers()">GO!!!</div>
+            <div class="go-button-div">
+                <button class="go-button" onclick="getNumbers()">GO!!!</button>
             </div>
         </div>
     </div>
+
+    <script>
+
+        let seed = Math.round(performance.now());
+        const MAX_NUM = Number.MAX_SAFE_INTEGER;
+
+    </script>
 
     <script>
 
@@ -243,24 +255,28 @@
             }
 
             let date = Date.now();
-            let perf = performance.now();
-
-            perf = Math.round(perf);
+            let perf = Math.round(performance.now());
 
             document.querySelector('#date').innerText = date;
             document.querySelector('#perf').innerText = Math.round(perf);
 
             let lowerLimit = 1;
             let upperLimit = document.querySelector('#upper-limit').value;
-            const randomNumber = date + perf;
+
+            const randomNumber = ((seed % 1e9) * (date % 1e9)) % MAX_NUM + 7;
+            seed = randomNumber;
+
+            // console.log(randomNumber)
+
             const result = (randomNumber % upperLimit) + lowerLimit;
+
+            // console.log(result)
+
             const colorNum = (randomNumber % 10 + 1) * 36;
 
             document.querySelector('#result').
                 innerText = result;
             document.querySelector('#result').style.backgroundColor = `hsl(${colorNum % 360}, 100%, 35%)`;
-
-            console.log(colorNum, result)
         }
     </script>
 
