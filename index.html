@@ -26,6 +26,7 @@
         h1 {
             text-align: center;
             color: hsl(60, 100%, 75%);
+            margin-bottom: 0.5rem;
         }
 
         html {
@@ -74,6 +75,10 @@
             box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.5), inset 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
         }
 
+        .disable-click {
+            pointer-events: none !important;
+        }
+
         .ripple {
             background-position: center;
             transition: background 0.8s;
@@ -106,9 +111,57 @@
             background-color: hsl(0, 0%, 35%);
             color: white;
             border: 0.45rem solid hsl(50, 100%, 65%);
-            margin-right: 1rem;
+            margin: 1.5rem;
             text-shadow: 1px 1.5px 5px black;
             box-shadow: inset 1px 1px 3px 3px rgba(0, 0, 0, 0.5), 3px 3px 7px 7px rgba(0, 0, 0, 0.25);
+        }
+
+        .rotation {
+            animation: spin 1s linear;
+        }
+
+        .reverse-rotation {
+            animation: reverse-spin 1s linear;
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes reverse-spin {
+            from {
+                -webkit-transform: rotate(360deg);
+            }
+
+            to {
+                -webkit-transform: rotate(0deg);
+            }
+        }
+
+        @keyframes reverse-spin {
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
         }
 
         .number-input-container {
@@ -180,6 +233,7 @@
             border: 2px solid #000;
             cursor: pointer;
             font-size: 2.5rem;
+            user-select: none;
         }
 
         .button-decrement {
@@ -218,9 +272,9 @@
             <h1>Random Number Generator</h1>
 
             <div class="result-div">
-                <p>
-                    <span id="result">0</span>
-                </p>
+                <!-- <p> -->
+                <span id="result" class="result">?</span>
+                <!-- </p> -->
             </div>
 
             <!-- input Limit -->
@@ -236,7 +290,7 @@
             </div>
 
             <div class="go-button-div">
-                <button class="go-button ripple" onclick="getNumbers()">GO!!!</button>
+                <button class="go-button ripple">GO!!!</button>
             </div>
 
         </div>
@@ -246,6 +300,36 @@
 
         let seed = Math.round(performance.now());
         const MAX_NUM = Number.MAX_SAFE_INTEGER;
+
+    </script>
+
+    <script>
+
+        const goButton = document.querySelector('.go-button');
+        const resultBox = document.querySelector('.result');
+
+        goButton.addEventListener('click', (e) => {
+            resultBox.innerText = "?";
+            resultBox.style.backgroundColor = `hsl(0, 0%, 35%)`;
+
+            if (resultBox.classList.contains('rotation')) {
+                resultBox.classList.remove('rotation');
+                resultBox.classList.add('reverse-rotation');
+            }
+            else {
+                resultBox.classList.remove('reverse-rotation');
+                resultBox.classList.add('rotation');
+            }
+
+            goButton.classList.add('disable-click');
+
+            setTimeout(() => {
+                getNumbers();
+                goButton.classList.remove('disable-click');
+            }, 1000);
+
+        });
+
 
     </script>
 
