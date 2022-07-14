@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RandNumb | Random Numbers Generator</title>
+    <title>RandNumb</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png">
 
     <style>
-
         /* Fonts */
         @font-face {
             font-family: 'Montserrat';
@@ -41,7 +41,7 @@
         .main {
             color: #fff;
             background-color: hsl(275, 66%, 30%);
-            background-image: linear-gradient(to bottom right,hsl(275, 66%, 30%), hsl(175, 66%, 30%));
+            background-image: linear-gradient(to bottom right, hsl(275, 66%, 30%), hsl(175, 66%, 30%));
             padding: 1rem;
             border: 3px solid white;
             border-radius: 10px;
@@ -65,11 +65,24 @@
             box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.5);
             user-select: none;
             min-width: 270px;
+            transition: all 1s ease-in;
+            margin: 1rem;
         }
 
         .go-button:active {
             box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5), inset 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
-            background-color: hsl(118, 100%, 65%);
+        }
+
+        .ripple {
+            background-position: center;
+            transition: background 0.8s;
+            background: hsl(120, 90%, 62%) radial-gradient(circle, transparent 1%, hsl(120, 90%, 62%) 1%) center/15000%;
+        }
+
+        .ripple:active {
+            background-color: rgb(150, 249, 134);
+            background-size: 100%;
+            transition: background 0s;
         }
 
         .result-div {
@@ -222,7 +235,7 @@
             </div>
 
             <div class="go-button-div">
-                <button class="go-button" onclick="getNumbers()">GO!!!</button>
+                <button class="go-button ripple" onclick="getNumbers()">GO!!!</button>
             </div>
 
         </div>
