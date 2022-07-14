@@ -8,9 +8,23 @@
     <title>RandNumb | Random Numbers Generator</title>
 
     <style>
+
+        /* Fonts */
+        @font-face {
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aXo.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
         * {
-            font-family: sans-serif;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        h1 {
+            text-align: center;
         }
 
         html {
@@ -18,16 +32,18 @@
         }
 
         body {
-            background-color: #888;
+            background-color: #222;
             max-width: 700px;
             margin: 0 auto;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .main {
             color: #fff;
-            background-color: rgb(115, 74, 141);
+            background-color: hsl(275, 66%, 30%);
+            background-image: linear-gradient(to bottom right,hsl(275, 66%, 30%), hsl(175, 66%, 30%));
             padding: 1rem;
-            border: 2px solid black;
+            border: 3px solid white;
             border-radius: 10px;
         }
 
@@ -37,52 +53,59 @@
         }
 
         .go-button {
-            font-size: larger;
+            font-size: x-large;
             font-weight: 700;
             color: #000;
-            background-color: bisque;
+            background-color: hsl(118, 100%, 75%);
             padding: 1rem 1.5rem;
             border: 3px solid black;
             border-radius: 20px;
             max-width: fit-content;
             cursor: pointer;
-            box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.5);
+            box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.5);
             user-select: none;
+            min-width: 270px;
         }
 
         .go-button:active {
-            box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
-            background-color: hsl(32, 100%, 80%)
+            box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5), inset 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+            background-color: hsl(118, 100%, 65%);
         }
 
         .result-div {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1rem;
+            margin: 2rem 0;
         }
 
         #result {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 3rem;
+            font-size: 4.5rem;
             font-weight: bold;
             border-radius: 20px;
-            width: 6rem;
-            height: 4rem;
+            width: 9rem;
+            height: 6rem;
             background-color: hsl(84, 100%, 35%);
             background-color: hsl(0, 0%, 35%);
             color: white;
-            border: 2px solid black;
+            border: 4px solid white;
             margin-right: 1rem;
+            text-shadow: 1px 1.5px 5px black;
+            box-shadow: inset 1px 1px 10px 1px rgba(0, 0, 0, 0.25);
         }
 
         .number-input-container {
-            width: 244px;
+            width: 280px;
             display: grid;
-            grid-template-columns: 48px auto 48px;
+            grid-template-columns: 60px auto 60px;
             margin: 1rem 0;
+            background-color: hsl(0, 100%, 65%);
+            padding: 0.5rem;
+            border: 2px solid black;
+            border-radius: 20px;
         }
 
         .number-input {
@@ -100,12 +123,14 @@
 
             width: 100%;
             min-width: 100%;
-            height: 48px;
+            /* height: 48px; */
             border-radius: none;
 
-            font-size: large;
+            font-size: 1.25rem;
             line-height: 24px;
             text-align: center;
+
+            font-family: sans-serif;
         }
 
         input[type="number"]::-webkit-inner-spin-button,
@@ -140,30 +165,32 @@
             color: #000;
             border: 2px solid #000;
             cursor: pointer;
+            font-size: 2.5rem;
         }
 
         .button-decrement {
-            font-size: x-large;
             color: #000;
             border-right: none;
+            border-radius: 20px 0 0 20px;
+            padding: 1rem;
         }
 
         .button-increment {
-            font-size: x-large;
             color: #000;
             border-left: none;
-        }
-
-        .info-div {
-            background-color: rgba(0, 0, 0, 0.25);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 10px 0;
+            border-radius: 0 20px 20px 0;
         }
 
         .some-info {
             font-size: medium;
             color: yellow;
+        }
+
+        .card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
     </style>
 
@@ -176,17 +203,6 @@
         <div class="card">
             <h1>Random Number Generator</h1>
 
-            <div class="info-div">
-                <p>Date Now: <span id="date">0</span> </p>
-                <span class="some-info">(relative to the Unix epoch)</span>
-            </div>
-
-            <div class="info-div">
-                <p>Performance Now: <span id="perf">0</span> </p>
-                <span class="some-info">(relative to page load)</span>
-            </div>
-
-            <h1>Result: </h1>
             <div class="result-div">
                 <p>
                     <span id="result">0</span>
@@ -205,13 +221,10 @@
                 <button type="button" class="value-change-button button-increment" data-type="increment">+</button>
             </div>
 
-
-
-            <!--  -->
-
             <div class="go-button-div">
                 <button class="go-button" onclick="getNumbers()">GO!!!</button>
             </div>
+
         </div>
     </div>
 
@@ -255,10 +268,6 @@
             }
 
             let date = Date.now();
-            let perf = Math.round(performance.now());
-
-            document.querySelector('#date').innerText = date;
-            document.querySelector('#perf').innerText = Math.round(perf);
 
             let lowerLimit = 1;
             let upperLimit = document.querySelector('#upper-limit').value;
