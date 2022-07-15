@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Random Number Generator">
+
     <title>RandNumb</title>
+
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png">
 
     <style>
@@ -279,7 +282,7 @@
 
             <!-- input Limit -->
 
-            <span class="some-info">[ Input the Upper Limit ]</span>
+            <label class="some-info" for="upper-limit"> [ Input the Upper Limit ] </label>
 
             <div class="number-input-container">
                 <button type="button" class="value-change-button button-decrement" data-type="decrement">-</button>
@@ -370,9 +373,9 @@
             const randomNumber = ((seed % 1e9) * (date % 1e9)) % MAX_NUM + 7;
             seed = randomNumber;
 
-            
+
             const result = (randomNumber % upperLimit) + lowerLimit;
-            
+
             // console.log(randomNumber, result)
 
             const colorNum = (randomNumber % 10 + 1) * 36;
