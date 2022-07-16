@@ -71,18 +71,30 @@ document.querySelectorAll('.value-change-button').forEach(elem => elem.addEventL
 })
 )
 
+/******* Function to check if a string is a valid Number *******/
 
-/******* Function to get generate Random Number*******/
+let isNumeric = (str) => {
+    if (typeof str != "string") return false; 
+    return !isNaN(str) && !isNaN(parseFloat(str));
+}
+
+
+/******* Function to get generate Random Number *******/
 
 let getNumbers = () => {
+
+    if (!isNumeric(upperValue.value))
+    {
+        upperValue.value = 10;
+    }
+
+    upperValue.value = Math.floor(upperValue.value);
 
     if (upperValue.value < 1) {
         upperValue.value = 1;
     } else if (upperValue.value > maxLimitForNumberGeneration) {
         upperValue.value = maxLimitForNumberGeneration;
-    } else if (upperValue.value === '') {
-        upperValue.value = 10;
-    }
+    } 
 
     let date = Date.now();
 
